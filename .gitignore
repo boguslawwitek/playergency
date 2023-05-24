@@ -33,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# backend
+.env
+/backend/node_modules
+/backend/build
+/backend/public/swagger.json
