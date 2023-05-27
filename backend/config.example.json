@@ -1,5 +1,8 @@
 {
     "PORT": 3001,
+    "frontendUrl": "http://localhost:3000",
+    "sessionSecret": "",
+    "mongoUri": "mongodb://127.0.0.1:27017/playergency",
     "discordBotToken": "",
     "discordClientId": "",
     "discordClientSecret": "",
