@@ -1,0 +1,33 @@
+{
+  "who-we-are": {
+    "desc": "We are a polish community of players, a place where you can find companions to play with, talk to and find help if you need it. We are constantly developing and improving our website and Discord server. We keep up with the trends and add new features to make it easier for people to play and make new friends.",
+    "discord-btn": "Join to our Discord!",
+    "discord-btn-with-members-1": "Join to",
+    "discord-btn-with-members-2": "users on our Discord!"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Player Dashboard",
+    "ranking": "Ranking",
+    "login": "Login"
+  },
+  "header": {
+    "desc": "Looking for people to play? Join us."
+  },
+  "footer": {
+    "privacy-policy": "Privacy Policy",
+    "group": "Group",
+    "copyright": "All rights reserved.",
+    "author": "Created with ❤️ by"
+  },
+  "homepage": {
+    "heading-1": "Our priority is the players.",
+    "heading-2": "What makes us unique?",
+    "heading-3": "Administration",
+    "desc-1": "You can find people to play any game, any type. And in case there are no people to play your game, you can wait for someone to show up, invite someone, or encourage our members to play whatever you want.",
+    "desc-2": "We have our own Discord bot, which includes a friendly and easy to use player panel where you can, among other things, assign yourself a role on the Discord server.",
+    "desc-3": "Activity and involvement in our community is rewarded. Work with us to create a great place for players. Together we will achieve our goal.",
+    "desc-3-a": "You can check out the ranking on our site and also share a link to your profile.",
+    "desc-4": "You have the opportunity to win the game, completely free of charge. You only need to be active on the Discord server and follow the draws."
+  }
+}

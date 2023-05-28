@@ -34,8 +34,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# old locales
+/dictionaries/old
+
 # backend
-.env
+/backend/.env
 /backend/node_modules
 /backend/build
 /backend/public/swagger.json

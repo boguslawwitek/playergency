@@ -1,0 +1,33 @@
+{
+  "who-we-are": {
+    "desc": "Jesteśmy społecznością graczy, miejscem, gdzie możesz znaleźć towarzyszy do gry, porozmawiać z nimi a także znaleźć pomoc, jeśli jej potrzebujesz. Stale się rozwijamy i ulepszamy naszą stronę internetową oraz serwer Discord. Podążamy za trendami i dodajemy nowe funkcje, aby ułatwić ludziom grę i nawiązywanie nowych znajomości.",
+    "discord-btn": "Dołącz do naszego Discorda!",
+    "discord-btn-with-members-1": "Dołącz do",
+    "discord-btn-with-members-2": "użytkowników na Discordzie!"
+  },
+  "nav": {
+    "home": "Strona Główna",
+    "dashboard": "Panel Gracza",
+    "ranking": "Ranking",
+    "login": "Zaloguj się"
+  },
+  "header": {
+    "desc": "Szukasz ludzi do gry? Dołącz do nas."
+  },
+  "footer": {
+    "privacy-policy": "Polityka prywatności",
+    "group": "Grupa",
+    "copyright": "Wszelkie prawa zastrzeżone.",
+    "author": "Stworzone z ❤️ przez"
+  },
+  "homepage": {
+    "heading-1": "Naszym piorytetem są gracze.",
+    "heading-2": "Co nas wyróżnia?",
+    "heading-3": "Administracja",
+    "desc-1": "Znajdziesz u nas osoby do grania w każdą grę, każdego typu. Natomiast w przypadku gdy nie będzie osób do twojej gry możesz zaczekać aż ktoś się pojawi, zaprosić kogoś lub namówić naszych użytkowników do grania w co tylko chcesz.",
+    "desc-2": "Posiadamy autorskiego bota Discord, którego częścią jest przyjazny i łatwy w obsłudze panel gracza na którym, można min. przydzielić sobie rolę na serwerze Discord.",
+    "desc-3": "Aktywność i zaangażowanie w naszą społeczność są nagradzane. Współpracuj z nami, aby stworzyć wspaniałe miejsce dla graczy. Razem osiągniemy nasz cel.",
+    "desc-3-a": "Możesz sprawdzić ranking na naszej stronie, a także udostępnić link do swojego profilu.",
+    "desc-4": "Masz możliwość zdobycia gry, całkowicie za darmo. Wystarczy tylko że będziesz aktywny na serwerze Discord oraz będziesz śledził losowania."
+  }
+}
