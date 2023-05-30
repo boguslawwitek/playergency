@@ -26,7 +26,8 @@ export function middleware(request: NextRequest) {
       '/images/gta.png',
       '/images/csgo.png',
       '/images/lol.png',
-      '/images/minecraft.png'
+      '/images/minecraft.png',
+      '/images/bg.jpg'
       // Your other files in `public`
     ].includes(pathname)
   )

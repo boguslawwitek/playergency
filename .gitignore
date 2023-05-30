@@ -34,9 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# old locales
-/dictionaries/old
-
 # backend
 /backend/.env
 /backend/node_modules

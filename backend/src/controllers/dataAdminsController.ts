@@ -1,7 +1,6 @@
 import express from "express";
 import { Get, Route, Request, Tags } from "tsoa";
 import adminModel from "../models/admin";
-import * as config from "../../config.json";
 
 interface DataRolesResponse {
   admins: Array<{}>

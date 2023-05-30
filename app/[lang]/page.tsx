@@ -4,6 +4,8 @@ import Footer from "./components/Footer";
 import { getDictionary } from '../../get-dictionary';
 import { Locale } from '../../i18n-config';
 import LocaleSwitch from './components/LocaleSwitch';
+import DiscordMembersLink from "./components/DiscordMembersLink";
+import CooskiesBanner from "./components/CookiesBanner";
 
 async function getIconUrl() {
   const res = await fetch(`${process.env.backendUrl}/discord/getPlayergencyIconUrl`, { next: { revalidate: 10 } });
@@ -34,11 +36,11 @@ export default async function Home({
     if(!a.visibilityOnHomepage) return null;
 
     return (
-      <div className="h-[290px] w-full md:w-1/3 max-w-sm border rounded-lg shadow bg-gray-800 border-red-600 mx-4 my-2" key={index}>
+      <div className="h-[290px] w-full md:w-1/3 max-w-sm border rounded-lg shadow bg-gray-700 border-gray-600 mx-4 my-2" key={index}>
         <div className="flex flex-col items-center pb-8 pt-8">
             <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={a.avatarUrl} alt={`${a.username} avatar`} />
             <h5 className="mb-1 text-xl font-medium text-white">{a.username}</h5>
-            <div className="text-sm text-red-600 mb-1">{lang === 'pl' ? a.rolePL : a.roleEN}</div>
+            <div className="text-sm text-indigo-500 font-semibold mb-1">{lang === 'pl' ? a.rolePL : a.roleEN}</div>
             <div className="text-sm px-4">{lang === 'pl' ? a.descPL : a.descEN}</div>
         </div>
       </div>
@@ -51,7 +53,7 @@ export default async function Home({
     <section className="max-w-screen-xl m-auto mt-6">
       <div className="w-full flex flex-col justify-center items-center text-center">
         <p className="text-xl px-3">{dictionary['who-we-are'].desc}</p>
-        <a href="https://discord.com/invite/85cV6Et" target="_blank" className="text-white focus:outline-none focus:ring-4 font-medium rounded-full px-1 sm:px-6 py-3 text-center mr-2 mb-2 bg-[#5865f2] hover:bg-[#4752c4] focus:ring-[#5865f2] w-fit text-lg mt-9">{members ? `${dictionary['who-we-are']["discord-btn-with-members-1"]} ${members} ${dictionary['who-we-are']["discord-btn-with-members-2"]}` : dictionary['who-we-are']["discord-btn"]}</a>
+        <DiscordMembersLink members={members} dictionary={dictionary['who-we-are']} />
       </div>
     </section>
     <main className="max-w-screen-xl m-auto text-center">
@@ -66,11 +68,11 @@ export default async function Home({
           <img src="/images/csgo.png" alt="Counter Strike" className="w-1/3 md:w-1/5 max-w-full" />
           <p className="text-left px-9 text-xl py-3 md:py-0">{dictionary.homepage["desc-2"]}</p>
         </div>
-        <div className="flex flex-col-reverse md:flex-row justify-between items-center border-t-2 border-gray-800">
+        <div className="flex flex-col-reverse md:flex-row justify-between items-center border-t-2 border-gray-700">
           <p className="text-left px-9 text-xl py-3 md:py-0">{dictionary.homepage["desc-3"]} <strong>{dictionary.homepage["desc-3-a"]}</strong></p>
           <img src="/images/lol.png" alt="League of Legends" className="w-1/2 md:w-1/3 max-w-full" />
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center border-t-2 border-gray-800">
+        <div className="flex flex-col md:flex-row justify-between items-center border-t-2 border-gray-700">
           <img src="/images/minecraft.png" alt="Minecraft" className="w-1/2 md:w-1/3 max-w-full" />
           <p className="text-left px-9 text-xl py-3 md:py-0">{dictionary.homepage["desc-4"]}</p>
         </div>
@@ -82,6 +84,7 @@ export default async function Home({
         </div>
       </section>
     </main>
+    <CooskiesBanner dictionary={dictionary['cookies-banner']} />
     <Footer dictionary={dictionary.footer}><LocaleSwitch lang={lang} /></Footer>
   </>)
 }

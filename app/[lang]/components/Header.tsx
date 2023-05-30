@@ -6,14 +6,11 @@ interface HeaderProps {
 
 export default function Header({dictionary}:HeaderProps) {
     return (
-        <header className="static lg:mb-72"> 
-            <div className="bg-[#d00a28] w-full pt-16 px-2">
-                <h1 className="bg-[#d00a28] w-full text-center pt-16 pb-4 text-4xl">Playergency</h1>
-                <h2 className="bg-[#d00a28] w-full text-center text-xl pb-9">{dictionary.desc}</h2>
+        <header className="max-w-[2000px] m-auto pt-[68px] bg-center bg-no-repeat bg-[url('/images/bg.jpg')] bg-gray-500 bg-blend-multiply">
+            <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+                <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Playergency</h1>
+                <p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">{dictionary.desc}</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="lg:absolute lg:top-50 lg:left-0 lg:z-[-1]">
-                <path fill="#D00A28" fillOpacity="1" d="M0,192L80,192C160,192,320,192,480,165.3C640,139,800,85,960,85.3C1120,85,1280,139,1360,165.3L1440,192L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
-            </svg>
         </header>
     )
 }

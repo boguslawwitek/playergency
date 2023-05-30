@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faHandshakeAngle, faFileContract} from "@fortawesome/free-solid-svg-icons";
 import {faDiscord, faTwitch, faTwitter, faYoutube, faSpotify, faFacebook, faSteam} from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 interface FooterProps {
     children: ReactNode,
@@ -19,7 +20,7 @@ export default function Footer({children, dictionary}: FooterProps) {
         <div className="mx-auto w-full max-w-screen-xl">
         <div className="w-full px-4 py-3 sm:py-6 lg:py-8">
             <div>
-                <ul className="max-w-screen-lg text-gray-400 font-medium flex flex-col flex-wrap sm:max-h-[220px]">
+                <ul className="max-w-screen-lg text-gray-100 font-medium flex flex-col flex-wrap sm:max-h-[220px]">
                     <li className="mb-4 flex items-center">
                         <FontAwesomeIcon icon={faDiscord} className="text-lg w-6 mr-1" />
                         <a href="https://discord.gg/85cV6Et" target="blank" className=" hover:underline">Discord</a>
@@ -58,14 +59,14 @@ export default function Footer({children, dictionary}: FooterProps) {
                     </li>
                     <li className="mb-4 flex items-center">
                         <FontAwesomeIcon icon={faFileContract} className="text-lg w-6 mr-1" />
-                        <a href="#" className="hover:underline">{dictionary["privacy-policy"]}</a>
+                        <Link href="/privacy-policy" className="hover:underline">{dictionary["privacy-policy"]}</Link>
                     </li>
                 </ul>
             </div>
         </div>
         <div className="px-4 py-6 flex flex-col items-center justify-center sm:justify-between sm:flex-row">
             {children}
-            <span className="text-sm text-gray-300 text-center">© 2016-2023 Playergency. {dictionary.copyright}<br/>{dictionary.author} <a href="https://bwitek.dev" target="_blank">BWitek.dev</a></span>
+            <span className="text-sm text-gray-200 text-center">© 2016-2023 Playergency. {dictionary.copyright}<br/>{dictionary.author} <a href="https://bwitek.dev" target="_blank">BWitek.dev</a></span>
         </div>
         </div>
         </footer>
