@@ -1,14 +1,14 @@
-import { i18n } from '../../i18n-config';
 import './globals.css';
 import { Inter } from 'next/font/google';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
+import { getIconUrl } from './utils';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export async function generateMetadata() {
-  const { iconUrl } = await fetch(`${process.env.backendUrl}/discord/getPlayergencyIconUrl`).then((res) => res.json());
+  const { iconUrl } = await getIconUrl();
  
   return {
     title: 'Playergency',
@@ -18,15 +18,11 @@ export async function generateMetadata() {
   };
 }
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }))
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params
+  params,
 }: {
-  children: React.ReactNode,
+  children: React.ReactNode
   params: { lang: string }
 }) {
   return (

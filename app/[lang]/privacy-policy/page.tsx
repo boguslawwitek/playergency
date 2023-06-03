@@ -1,27 +1,23 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import LocaleSwitch from '../components/LocaleSwitch';
-import { getDictionary } from '../../../get-dictionary';
-import { Locale } from '../../../i18n-config';
+import LanguageSwitch from '../components/LanguageSwitch';
 import CooskiesBanner from "../components/CookiesBanner";
-
-async function getIconUrl() {
-    const res = await fetch(`${process.env.backendUrl}/discord/getPlayergencyIconUrl`, { next: { revalidate: 10 } });
-    return res.json();
-}
+import { getIconUrl, getUser } from "../utils";
+import { getDictionary } from '../../../dictionary';
+import { Locale } from '../../../i18n-config';
 
 export default async function PrivacyPolicy({
     params: { lang },
   }: {
     params: { lang: Locale }
-  }) {
-
-    const dictionary = await getDictionary(lang);
+}) {
     const { iconUrl } = await getIconUrl();
+    const dictionary = await getDictionary(lang);
+    const userData = await getUser();
 
     return (<>
-        <Nav iconUrl={iconUrl} dictionary={dictionary.nav} withBackgroundColor={true} />
-        <section className="pt-[100px] pb-8 max-w-screen-xl m-auto px-2">
+        <Nav iconUrl={iconUrl} dictionary={dictionary.nav} withBackgroundColor={true} backendUrl={String(process.env.backendUrl)} userData={userData} />
+        <section className="pt-[144px] md:pt-[100px] pb-8 max-w-screen-xl m-auto px-2">
             <h1 className="text-4xl font-semibold my-3">{dictionary["privacy-policy"]["heading-1"]}</h1>
             <h2 className="text-3xl font-semibold my-3">{dictionary["privacy-policy"]["heading-2"]}</h2>
                 <ol className="list-decimal ml-8 text-lg my-2">
@@ -91,7 +87,7 @@ export default async function PrivacyPolicy({
                 <div className="text-xl font-semibold mb-2 underline">{dictionary["privacy-policy"]["point-h-15"]}</div>
                 <div className="text-xl font-semibold mb-2 underline">{dictionary["privacy-policy"]["point-h-16"]}</div>
         </section>
-        <CooskiesBanner dictionary={dictionary['cookies-banner']} />
-        <Footer dictionary={dictionary.footer}><LocaleSwitch lang={lang} /></Footer>
+        <CooskiesBanner dictionary={dictionary["cookies-banner"]} />
+        <Footer dictionary={dictionary.footer}><LanguageSwitch lang={lang} /></Footer>
     </>)
 }

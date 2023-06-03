@@ -8,8 +8,13 @@
   "nav": {
     "home": "Strona Główna",
     "dashboard": "Panel Gracza",
+    "go-to-dashboard": "Przejdź do panelu",
     "ranking": "Ranking",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "profile": "Profil",
+    "roles": "Role",
+    "settings": "Ustawienia",
+    "logout": "Wyloguj"
   },
   "header": {
     "desc": "Szukasz ludzi do gry? Dołącz do nas."

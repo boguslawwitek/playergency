@@ -2,6 +2,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { cookiesParse } from "../utilsClient";
 
 interface CookiesBannerProps {
     dictionary: {
@@ -13,13 +14,6 @@ interface CookiesBannerProps {
 
 export default function CooskiesBanner({dictionary}:CookiesBannerProps) {
     const [isVisible, setIsVisible] = useState(false);
-
-    function cookiesParse() {
-        return Object.fromEntries(document.cookie.split(/; */).map(c => {
-            const [ key, v ] = c.split('=', 2);
-            return [ key, decodeURIComponent(v) ];
-        }));
-    }
 
     useEffect(() => {
         const cookies = cookiesParse();
@@ -45,7 +39,7 @@ export default function CooskiesBanner({dictionary}:CookiesBannerProps) {
     }
 
     return (
-        <div className={classNames('fixed bottom-0 left-0 z-20 w-full p-4 border-t shadow md:flex md:items-center md:justify-between md:p-6 bg-gray-900 border-gray-600', isVisible ? null : 'hidden opacity-0 invisible')}>
+        <div className={classNames('fixed bottom-0 left-0 z-50 w-full p-4 border-t shadow md:flex md:items-center md:justify-between md:p-6 bg-gray-900 border-gray-600', isVisible ? null : 'hidden opacity-0 invisible')}>
             <div className="max-w-screen-xl m-auto flex flex-col md:flex-row justify-between items-center">
                 <div className="md:max-w-[50%] px-2">{dictionary.desc}</div>
                 <div className="pt-6 md:pt-0 flex flex-col sm:flex-row justify-center items-center">

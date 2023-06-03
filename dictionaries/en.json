@@ -8,8 +8,13 @@
   "nav": {
     "home": "Home",
     "dashboard": "Player Dashboard",
+    "go-to-dashboard": "Go to dashboard",
     "ranking": "Ranking",
-    "login": "Login"
+    "login": "Login",
+    "profile": "Profile",
+    "roles": "Roles",
+    "settings": "Settings",
+    "logout": "Logout"
   },
   "header": {
     "desc": "Looking for people to play? Join us."

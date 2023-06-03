@@ -16,7 +16,7 @@ interface FooterProps {
 
 export default function Footer({children, dictionary}: FooterProps) {
     return (
-        <footer className="bg-gray-900 border-t-2 border-gray-800">
+        <footer className="bg-gray-900 border-t-2 border-gray-800 relative bottom-0 left-0 z-30 md:z-40 w-full">
         <div className="mx-auto w-full max-w-screen-xl">
         <div className="w-full px-4 py-3 sm:py-6 lg:py-8">
             <div>

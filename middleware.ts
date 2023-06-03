@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { i18n } from './i18n-config'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { i18n } from './i18n-config';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 
@@ -23,12 +23,11 @@ export function middleware(request: NextRequest) {
   // // If you have one
   if (
     [
-      '/images/gta.png',
+      '/images/bg.jpg',
       '/images/csgo.png',
+      '/images/gta.png',
       '/images/lol.png',
       '/images/minecraft.png',
-      '/images/bg.jpg'
-      // Your other files in `public`
     ].includes(pathname)
   )
     return
@@ -40,11 +39,13 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request)
+    let locale = getLocale(request);
+    let cookie = request.cookies.get('language')?.value;
+    if(cookie === 'pl' || cookie === 'en') locale = cookie;
 
     // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url))
+    // The new URL is now /pl/products
+    return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));
   }
 }
 
