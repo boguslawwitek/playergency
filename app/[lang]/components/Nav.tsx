@@ -23,11 +23,13 @@ interface NavProps {
         username: string,
         userId: string,
         avatarUrl: string,
-        admin: boolean
+        admin: boolean,
+        guildMember: boolean
     }
+    activeLink?: string
 }
 
-export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutList, children, backendUrl, userData}:NavProps) {
+export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutList, children, backendUrl, userData, activeLink}:NavProps) {
     const { push } = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -58,11 +60,12 @@ export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutLi
                 </button>
 
                 <div id="userDropdown" className={classNames("absolute top-16 right-0.5 z-10 divide-y rounded-lg shadow w-44 bg-gray-700 divide-gray-600", isUserDropdownOpen ? null : 'hidden')}>
+                    {!activeLink ? 
                     <ul className="py-2 text-sm text-gray-200" aria-labelledby="avatarButton">
                         <li>
                             <Link href="/dashboard" onClick={() => setIsUserDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-600 hover:text-white">{dictionary['go-to-dashboard']}</Link>
                         </li>
-                    </ul>
+                    </ul> : null}
                     <div className="py-1">
                         <button onClick={handleLogoutBtn} className="text-left block w-full px-4 py-2 text-sm hover:bg-gray-600 text-red-200 hover:text-white">{dictionary.logout}</button>
                     </div>

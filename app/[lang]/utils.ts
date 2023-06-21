@@ -11,13 +11,20 @@ export async function getMembersCount() {
 }
 
 export async function getAdmins() {
-    const res = await fetch(`${process.env.backendUrl}/data/getAdmins`, { next: { revalidate: 60 } });
+    const res = await fetch(`${process.env.backendUrl}/homepage/getAdmins`, { next: { revalidate: 60 } });
     return res.json();
 }
 
 export async function getUser() {
-    const res = await fetch(`${process.env.backendUrl}/auth/getUser`, { cache: 'no-cache', credentials: 'include', headers: {
+    const res = await fetch(`${process.env.backendUrl}/auth/getUser`, { next: { revalidate: 10 }, credentials: 'include', headers: {
       Cookie: cookies().getAll().map(({ name, value }) => `${name}=${value}`).join("; ")
     }});
     return res.json();
+}
+
+export async function getDashboardRoles() {
+  const res = await fetch(`${process.env.backendUrl}/roles/getDashboardRoles`, { next: { revalidate: 10 }, credentials: 'include', headers: {
+    Cookie: cookies().getAll().map(({ name, value }) => `${name}=${value}`).join("; ")
+  }});
+  return res.json();
 }

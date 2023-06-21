@@ -24,7 +24,8 @@ interface DashboardNavProps {
         username: string,
         userId: string,
         avatarUrl: string,
-        admin: boolean
+        admin: boolean,
+        guildMember: boolean
     },
     activeLink: "profile" | "roles" | "ranking" | "admin"
 }
@@ -33,7 +34,7 @@ export default function DashboardNav({iconUrl, dictionary, backendUrl, userData,
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (<>
-        <Nav iconUrl={iconUrl} dictionary={dictionary} withBackgroundColor={true} withoutList={true} backendUrl={backendUrl} userData={userData}>
+        <Nav iconUrl={iconUrl} dictionary={dictionary} withBackgroundColor={true} withoutList={true} backendUrl={backendUrl} userData={userData} activeLink={activeLink}>
             <button onClick={() => setIsMenuOpen(prev => !prev)} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-white" aria-controls="navbar-sticky" aria-expanded="false">
                 <span className="sr-only">Open main menu</span>
                 <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>

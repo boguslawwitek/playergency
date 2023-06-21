@@ -104,5 +104,13 @@
     "desc": "The site uses cookies to provide its services and in accordance with its Privacy Policy. You can specify the conditions for storing or accessing cookies in your browser.",
     "accept-btn": "I agree",
     "more-info": "More info"
+  },
+  "roles-dashboard": {
+    "search": "Search",
+    "category-all": "All",
+    "not-logged": "You must be logged in to assign roles.",
+    "not-guildmember": "First you must join our Discord server.",
+    "only-owned": "Only owned",
+    "no-roles": "No roles found"
   }
 }

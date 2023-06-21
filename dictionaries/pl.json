@@ -104,5 +104,13 @@
     "desc": "Strona korzysta z plików cookies w celu realizacji usług i zgodnie z Polityką prywatności. Możesz określić warunki przechowywania lub dostępu do plików cookies w Twojej przeglądarce.",
     "accept-btn": "Zgadzam się",
     "more-info": "Więcej informacji"
+  },
+  "roles-dashboard": {
+    "search": "Szukaj",
+    "category-all": "Wszystkie",
+    "not-logged": "Musisz być zalogowany aby przydzielać role.",
+    "not-guildmember": "Najpierw musisz dołączyć do naszego serwera Discord.",
+    "only-owned": "Tylko posiadane",
+    "no-roles": "Nieznaleziono żadnych ról"
   }
 }
