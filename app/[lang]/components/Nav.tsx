@@ -71,7 +71,7 @@ export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutLi
                     </div>
                 </div>
             </div>
-            : <button type="button" onClick={handleLoginBtn} className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-600">{dictionary.login}</button>}
+            : <button type="button" onClick={handleLoginBtn} className="select-none text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-600">{dictionary.login}</button>}
             {!withoutList ? 
             <button onClick={() => setIsMenuOpen(prev => !prev)} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 ml-2 text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-white" aria-controls="navbar-sticky" aria-expanded="false">
                 <span className="sr-only">Open main menu</span>

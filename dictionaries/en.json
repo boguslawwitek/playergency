@@ -112,5 +112,14 @@
     "not-guildmember": "First you must join our Discord server.",
     "only-owned": "Only owned",
     "no-roles": "No roles found"
+  },
+  "user-profile": {
+    "close-modal": "Close modal",
+    "share-profile": "Share link to profile",
+    "level": "Level",
+    "joined-at": "Joined the server",
+    "created-at": "Created Discord account",
+    "loading": "Loading",
+    "copy-link": "Copy link"
   }
 }

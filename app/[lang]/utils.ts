@@ -16,7 +16,7 @@ export async function getAdmins() {
 }
 
 export async function getUser() {
-    const res = await fetch(`${process.env.backendUrl}/auth/getUser`, { next: { revalidate: 10 }, credentials: 'include', headers: {
+    const res = await fetch(`${process.env.backendUrl}/auth/getUser`, { cache: 'no-store', credentials: 'include', headers: {
       Cookie: cookies().getAll().map(({ name, value }) => `${name}=${value}`).join("; ")
     }});
     return res.json();

@@ -193,8 +193,8 @@ export default function DashboardRoles({roles, categories, lang, userData, dicti
                 </label>
             </div></div> : null}
             
-            {userData.userId ? null : <p className="text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-logged"]}</p>}
-            {userData.userId && !userData.guildMember ? <p className="text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-guildmember"]}</p> : null}
+            {userData.userId ? null : <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-logged"]}</p>}
+            {userData.userId && !userData.guildMember ? <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-guildmember"]}</p> : null}
         </div>
 
         <div className="max-w-[800px] m-auto bg-gray-700 rounded-xl py-0.5 my-1 max-h-[525px] overflow-auto scrollbar scrollbar-thumb-indigo-600 scrollbar-track-gray-100">

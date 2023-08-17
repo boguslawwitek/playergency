@@ -112,5 +112,14 @@
     "not-guildmember": "Najpierw musisz dołączyć do naszego serwera Discord.",
     "only-owned": "Tylko posiadane",
     "no-roles": "Nieznaleziono żadnych ról"
+  },
+  "user-profile": {
+    "close-modal": "Zamknij modal",
+    "share-profile": "Udostępnij link do profilu",
+    "level": "Poziom",
+    "joined-at": "Dołączył do serwera",
+    "created-at": "Utworzył konto",
+    "loading": "Wczytywanie",
+    "copy-link": "Kopiuj link"
   }
 }

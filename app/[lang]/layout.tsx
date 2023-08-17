@@ -7,6 +7,12 @@ import { getIconUrl } from './utils';
 
 const inter = Inter({ subsets: ['latin'] });
 
+import { i18n } from '../../i18n-config'
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }))
+}
+
 export async function generateMetadata() {
   const { iconUrl } = await getIconUrl();
  
