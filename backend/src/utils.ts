@@ -10,3 +10,7 @@ export function getLevelColor(level: number) {
     else if(level < 38) return '#542437';
     else return '#c02942';
 }
+
+export function truncateString(str: string, n: number){
+    return (str.length > n) ? str.slice(0, n-1) + '...' : str;
+};

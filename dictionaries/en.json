@@ -120,6 +120,7 @@
     "joined-at": "Joined the server",
     "created-at": "Created Discord account",
     "loading": "Loading",
-    "copy-link": "Copy link"
+    "copy-link": "Copy link",
+    "unknown-user": "We did not find such a user in our database. First, join our Discord server."
   }
 }

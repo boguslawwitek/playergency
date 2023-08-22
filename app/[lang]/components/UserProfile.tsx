@@ -13,7 +13,8 @@ interface UserProfileProps {
         "joined-at": string,
         "created-at": string,
         loading: string,
-        "copy-link": string
+        "copy-link": string,
+        "unknown-user": string
     },
     backendUrl: String,
     lang: String
@@ -29,27 +30,22 @@ export default function UserProfile({dictionary, backendUrl, lang}: UserProfileP
 
     useEffect(() => {
 
-        fetch(`${backendUrl}/profile/getUser`, {
-            method: "POST",
-            credentials: 'include',
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({userId: userId}),
-        }).then(res => {
-            res.json().then(json => {
-                if(!json.error && json.error !== 'Unknown user') {
-                    setUserData(json.userData);
-                }
+        if(userId) {
+            fetch(`${backendUrl}/profile/getUser/${userId}`).then(res => {
+                res.json().then(json => {
+                    if(!json.error && json.error !== 'Unknown user') {
+                        setUserData(json.userData);
+                    }
+                });
             });
-        });
+        }
 
         const timer = setTimeout(() => {
-            setUnknownUserInfo('Nie znależliśmy takiego użytkownika w naszej bazie danych. Najpierw dołącz do naszego serwera Discord.');
+            setUnknownUserInfo(dictionary["unknown-user"]);
           }, 2000);
           return () => clearTimeout(timer);
 
-    }, [backendUrl, userId]);
+    }, [backendUrl, userId, dictionary]);
 
     function handleCopyLink() {
         if(inputShare != null) {

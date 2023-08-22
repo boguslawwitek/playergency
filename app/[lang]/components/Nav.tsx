@@ -55,7 +55,7 @@ export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutLi
                     <img className="w-10 h-10 rounded-full" src={userData.avatarUrl} alt="" />
                     <div className="font-medium text-white">
                         <div>{userData.username}</div>
-                        {userData.admin ? <div className="text-sm text-gray-400">Administrator</div> : null}
+                        {userData.admin ? <div className="text-sm text-indigo-400">Administrator</div> : null}
                     </div>
                 </button>
 

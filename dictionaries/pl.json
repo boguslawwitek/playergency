@@ -120,6 +120,7 @@
     "joined-at": "Dołączył do serwera",
     "created-at": "Utworzył konto",
     "loading": "Wczytywanie",
-    "copy-link": "Kopiuj link"
+    "copy-link": "Kopiuj link",
+    "unknown-user": "Nie znależliśmy takiego użytkownika w naszej bazie danych. Najpierw dołącz do naszego serwera Discord."
   }
 }
