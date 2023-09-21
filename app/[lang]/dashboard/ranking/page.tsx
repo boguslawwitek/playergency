@@ -19,7 +19,7 @@ export default async function DashboardRanking({
   const { ranking } = await getRankingTop100();
 
   const rankingMap = ranking.map((user: any, index: number) => {
-    return (<Link href={`/dashboard/profiles/${user.userid}`} key={index}><div className="flex w-full flex-col xl:flex-row justify-between items-center max-w-screen-lg m-auto bg-gray-700 border-gray-600 rounded-lg py-6 px-4 mb-4">
+    return (<Link className="w-full flex flex-col justify-center items-center mb-4 m-auto max-w-screen-lg" href={`/dashboard/profiles/${user.userid}`} key={index}><div className="flex w-full flex-col xl:flex-row justify-between items-center bg-gray-700 border-gray-600 rounded-lg py-6 px-4">
                 <div className="flex flex-col xl:flex-row justify-center items-center xl:w-1/5">
                     <div className="text-2xl text-gray-300 mr-4">{user.ranking}.</div>
                     <div className="flex items-center space-x-4 pt-1 xl:pt-0">
@@ -31,7 +31,7 @@ export default async function DashboardRanking({
                 </div>
                 <div className="flex flex-col xl:flex-row items-center justify-center w-full pt-4 xl:pt-0">
                     <div className="text-2xl text-gray-400 px-2 w-fit" style={{color: `${user.levelColor}`}}>{dictionary["user-profile"].level} {user.level}</div>
-                    <div className="w-full h-2 mb-4 mt-2 rounded-full bg-gray-800 relative max-w-md xl:max-w-[200px]">
+                    <div className="w-full h-2 mb-4 mt-2 xl:mb-0 xl:mt-0 rounded-full bg-gray-800 relative max-w-md xl:max-w-[200px]">
                         <div className="h-2 rounded-full bg-indigo-500" style={{width: `${user.levelPercentOfGoal}%`, backgroundColor: `${user.levelColor}`}}></div>
                     </div>
                 </div>

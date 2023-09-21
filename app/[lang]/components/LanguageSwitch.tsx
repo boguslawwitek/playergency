@@ -61,7 +61,7 @@ export default function LanguageSwitch({lang}:LanguageSwitchProps) {
               {lang === 'en' ? 'English' : 'Polski'}
             </button>
     
-          <div id="language-dropdown-menu" className={classNames("absolute bottom-7 left-2/4 -translate-x-1/2 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700", isDropdownOpen ? null : 'hidden')}>
+          <div id="language-dropdown-menu" className={classNames("absolute bottom-7 left-2/4 -translate-x-1/2 z-50 my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow bg-gray-700", isDropdownOpen ? null : 'hidden')}>
             <ul className="py-2 font-medium" role="none">
               <li>
                 <button onClick={() => handleBtn('en')} className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-600 hover:text-white" role="menuitem">

@@ -15,6 +15,7 @@ export default class DashboardRolesController {
   @Get("/")
   public async getRoles(@Request() req: express.Request): Promise<DashboardRolesResponse> {
     const allCategories = await roleCategoryModel.find({}).lean();
+    const sortedAllCategories = allCategories.sort((a: any, b: any) => a.index - b.index).map((cat: any) => cat);
     const roles = await roleModel.find({}).lean();
     const guild = req.discordBot.guilds.cache.get(config.discordGuildId);
     if(!guild) return {roles: [], categories: []};
@@ -43,7 +44,7 @@ export default class DashboardRolesController {
     const dashboardRolesFiltered = dashboardRoles.filter(r => r ? r : null);
     const dashboardRolesSorted = dashboardRolesFiltered.sort((a: any, b: any) => a.name.localeCompare(b.name));
 
-    if(dashboardRolesSorted) return {roles: dashboardRolesSorted, categories: allCategories}
+    if(dashboardRolesSorted) return {roles: dashboardRolesSorted, categories: sortedAllCategories}
     else return {roles: [], categories: []};
   }
 }

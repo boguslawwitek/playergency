@@ -14,7 +14,10 @@
     "profile": "Profile",
     "roles": "Roles",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "settings-categories": "Categories",
+    "settings-roles": "Roles",
+    "settings-admins": "Admins"
   },
   "header": {
     "desc": "Looking for people to play? Join us."
@@ -122,5 +125,25 @@
     "loading": "Loading",
     "copy-link": "Copy link",
     "unknown-user": "We did not find such a user in our database. First, join our Discord server."
-  }
+  },
+  "admin-dashboard": {
+    "settings-categories": "Category settings",
+    "settings-roles": "Roles settings",
+    "settings-admins": "Admins settings",
+    "userid": "User ID",
+    "desc": "Description",
+    "role": "Role",
+    "add-category": "Add category",
+    "add-admin": "Add admin",
+    "save-changes": "Save changes",
+    "access-admin-dashboard": "Access to dashboard",
+    "visible-on-homepage": "Visible on homepage",
+    "search": "Search",
+    "no-roles": "No roles found",
+    "close-modal": "Close modal",
+    "error-empty-categories": "Name fields cannot be empty",
+    "done": "Done!",
+    "search-user": "Search user",
+    "loading": "Loading"
+  } 
 }

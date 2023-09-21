@@ -16,7 +16,7 @@ export async function getAdmins() {
 }
 
 export async function getRankingTop100() {
-  const res = await fetch(`${process.env.backendUrl}/ranking/top100`, { next: { revalidate: 10 } });
+  const res = await fetch(`${process.env.backendUrl}/ranking/top100`, { next: { revalidate: 60 } });
   return res.json();
 }
 
@@ -28,7 +28,7 @@ export async function getUser() {
 }
 
 export async function getDashboardRoles() {
-  const res = await fetch(`${process.env.backendUrl}/roles/getDashboardRoles`, { next: { revalidate: 10 }, credentials: 'include', headers: {
+  const res = await fetch(`${process.env.backendUrl}/roles/getDashboardRoles`, { cache: 'no-store', credentials: 'include', headers: {
     Cookie: cookies().getAll().map(({ name, value }) => `${name}=${value}`).join("; ")
   }});
   return res.json();

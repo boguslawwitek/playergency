@@ -10,12 +10,13 @@ interface AdminSettingsRolesResponse {
   error: string | null
 }
 
-@Route("/roles/getAdminSettingsRoles")
-@Tags("Roles")
+@Route("/admin/getSettingsRoles")
+@Tags("Admin")
 export default class AdminSettingsRolesController {
   @Get("/")
   public async getAllRoles(@Request() req: express.Request): Promise<AdminSettingsRolesResponse> {
     const allCategories = await roleCategoryModel.find({}).lean();
+    const sortedAllCategories = allCategories.sort((a: any, b: any) => a.index - b.index).map((cat: any) => cat);
     const allRolesFromDb = await roleModel.find({}).lean();
 
     const guild = req.discordBot.guilds.cache.get(config.discordGuildId);
@@ -29,8 +30,13 @@ export default class AdminSettingsRolesController {
       const role: any = await roleModel.find({roleId: r.id}).lean();
       let isOnDatabase = false;
       let categories = [];
-      if(role.length > 0) isOnDatabase = true;
-      if(role.hasOwnProperty('categories')) categories = role.categories;
+      if(role.length > 0) {
+        isOnDatabase = true;
+
+        if(role[0].hasOwnProperty('categories')) {
+          categories = role[0].categories;
+        }
+      }
 
       return {icon: r.icon ? r.iconURL() : null, color: r.hexColor, name: r.name, id: r.id, isOnDatabase, categories, toDelete: false}
     }));
@@ -42,7 +48,7 @@ export default class AdminSettingsRolesController {
       if(!guildRolesFetch.find(r => r.id === roleDb.roleId)) rolesSorted.push({icon: null, color: '#C81E1E', name: `${roleDb.roleId}`, id: `${roleDb.roleId}`, isOnDatabase: true, categories: [], toDelete: true})
     }
 
-    if(rolesSorted) return {roles: rolesSorted, categories: allCategories, error: null};
+    if(rolesSorted) return {roles: rolesSorted, categories: sortedAllCategories, error: null};
     else return {roles: [], categories: [], error: null};
   }
 }

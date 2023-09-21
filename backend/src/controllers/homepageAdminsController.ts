@@ -18,7 +18,9 @@ export default class HomepageAdminsController {
         return {...a, username: user.username, avatarUrl: user.displayAvatarURL()};
     }));
 
-    if(admins) return {admins}
+    const sortedAdmins = admins.sort((a: any, b: any) => a.index - b.index).map((a: any) => a);
+
+    if(admins && sortedAdmins) return {admins: sortedAdmins}
     else return {admins: []};
   }
 }

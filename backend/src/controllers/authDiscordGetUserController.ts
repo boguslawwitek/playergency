@@ -8,7 +8,8 @@ interface AuthDiscordGetUserResponse {
     userId: string, 
     avatarUrl: string, 
     admin: boolean,
-    guildMember: boolean
+    guildMember: boolean,
+    owner: boolean
 }
 
 @Route("/auth/getUser")
@@ -16,7 +17,7 @@ interface AuthDiscordGetUserResponse {
 export default class AuthDiscordGetUserController {
   @Get("/")
   public async getUser(@Request() req: express.Request): Promise<AuthDiscordGetUserResponse> {
-    const defaultData = {username: '', userId: '', avatarUrl: 'https://cdn.discordapp.com/avatars/250333162079649792/dadcf711633437dba0906726fc7da5c8?size=512', admin: false, guildMember: false};
+    const defaultData = {username: '', userId: '', avatarUrl: 'https://cdn.discordapp.com/avatars/250333162079649792/dadcf711633437dba0906726fc7da5c8?size=512', admin: false, guildMember: false, owner: false};
     if(!req.session.userId) return defaultData;
 
     const adminsDb = await adminModel.find({}).lean();
@@ -31,10 +32,10 @@ export default class AuthDiscordGetUserController {
         const guildMember = await guild?.members.fetch(userData.id);
         if(guildMember && guildMember.id) flagGuildMember = true;
 
-        if(adminUser && adminUser.adminDashboard) {
-            return {username: userData.username, userId: userData.id, avatarUrl, admin: true, guildMember: flagGuildMember};
+        if((adminUser && adminUser.adminDashboard) || config.ownersDiscordIds.find(o => o === req.session.userId)) {
+            return {username: userData.username, userId: userData.id, avatarUrl, admin: true, guildMember: flagGuildMember, owner: config.ownersDiscordIds.find(o => o === req.session.userId) ? true : false};
         } else {
-            return {username: userData.username, userId: userData.id, avatarUrl, admin: false, guildMember: flagGuildMember};
+            return {username: userData.username, userId: userData.id, avatarUrl, admin: false, guildMember: flagGuildMember, owner: false};
         }
     } 
     

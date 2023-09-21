@@ -19,7 +19,10 @@ interface DashboardNavProps {
         settings: string,
         profile: string,
         logout: string,
-        'go-to-dashboard': string
+        'go-to-dashboard': string,
+        'settings-categories': string,
+        'settings-roles': string,
+        'settings-admins': string
     }
     userData: {
         username: string,
@@ -27,12 +30,14 @@ interface DashboardNavProps {
         avatarUrl: string,
         admin: boolean,
         guildMember: boolean
+        owner: boolean
     },
-    activeLink: "profile" | "roles" | "ranking" | "admin"
+    activeLink: "profile" | "roles" | "ranking" | "adminCategories" | "adminRoles" | "adminAdmins"
 }
 
 export default function DashboardNav({iconUrl, dictionary, backendUrl, userData, activeLink}:DashboardNavProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isAdminSettingsOpen, setIsAdminSettingsOpen] = useState(false);
     const { userId } = useParams();
 
     return (<>
@@ -71,13 +76,35 @@ export default function DashboardNav({iconUrl, dictionary, backendUrl, userData,
                     </Link>
                 </li>
                 {userData.admin ?
-                    <li>
-                        <Link href="/dashboard/admin" className={classNames("select-none flex items-center p-2 rounded-lg text-white hover:bg-gray-700", activeLink === 'admin' ? 'bg-gray-700 cursor-default' : null)}>
+                <li>
+                    <button type="button" onClick={() => setIsAdminSettingsOpen(prev => prev = !prev)} className={classNames("flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-white hover:bg-gray-700", activeLink === "adminCategories" || activeLink === "adminRoles" || activeLink === "adminAdmins" ? 'bg-gray-700' : null)} aria-controls="dropdown-admin-settings" data-collapse-toggle="dropdown-admin-settings">
                             <FontAwesomeIcon icon={faGear} className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
                             <span className="flex-1 ml-3 whitespace-nowrap">{dictionary.settings}</span>
                             <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium rounded-full bg-gray-700 text-gray-300">Admin</span>
-                        </Link>
-                    </li>
+                        <svg className="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <ul id="dropdown-admin-settings" className={classNames("py-2 space-y-2", isAdminSettingsOpen ? null : 'hidden')}>
+                        <li>
+                            <Link href="/dashboard/admin/categories" className={classNames("select-none flex items-center w-full p-2 transition duration-75 rounded-lg text-white hover:bg-gray-700 pl-12 group", activeLink === 'adminCategories' ? 'bg-gray-700 cursor-default' : null)}>
+                                {dictionary['settings-categories']}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/dashboard/admin/roles" className={classNames("select-none flex items-center w-full p-2 transition duration-75 rounded-lg text-white hover:bg-gray-700 pl-12 group", activeLink === 'adminRoles' ? 'bg-gray-700 cursor-default' : null)}>
+                                {dictionary['settings-roles']}
+                            </Link>
+                        </li>
+                        {userData.owner ?
+                        <li>
+                            <Link href="/dashboard/admin/admins" className={classNames("select-none flex items-center w-full p-2 transition duration-75 rounded-lg text-white hover:bg-gray-700 pl-12 group", activeLink === 'adminAdmins' ? 'bg-gray-700 cursor-default' : null)}>
+                                {dictionary['settings-admins']}
+                            </Link>
+                        </li>
+                        : null}
+                    </ul>
+                </li>
                 : null}
             </ul>
         </div>

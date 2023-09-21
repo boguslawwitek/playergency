@@ -14,7 +14,10 @@
     "profile": "Profil",
     "roles": "Role",
     "settings": "Ustawienia",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "settings-categories": "Kategorie",
+    "settings-roles": "Role",
+    "settings-admins": "Admini"
   },
   "header": {
     "desc": "Szukasz ludzi do gry? Dołącz do nas."
@@ -122,5 +125,25 @@
     "loading": "Wczytywanie",
     "copy-link": "Kopiuj link",
     "unknown-user": "Nie znależliśmy takiego użytkownika w naszej bazie danych. Najpierw dołącz do naszego serwera Discord."
-  }
+  },
+  "admin-dashboard": {
+    "settings-categories": "Ustawienia kategorii",
+    "settings-roles": "Ustawienia ról",
+    "settings-admins": "Ustawienia administratorów",
+    "userid": "ID użytkownika",
+    "desc": "Opis",
+    "role": "Rola",
+    "add-category": "Dodaj kategorie",
+    "add-admin": "Dodaj admina",
+    "save-changes": "Zapisz zmiany",
+    "access-admin-dashboard": "Czy ma mieć dostęp do panelu admina",
+    "visible-on-homepage": "Czy ma być widoczny na stronie głównej",
+    "no-roles": "Nieznaleziono żadnych ról",
+    "search": "Szukaj",
+    "close-modal": "Zamknij modal",
+    "error-empty-categories": "Pola z nazwami nie moga być puste",
+    "done": "Gotowe!",
+    "search-user": "Wyszukaj użytkownika",
+    "loading": "Wczytywanie"
+  } 
 }

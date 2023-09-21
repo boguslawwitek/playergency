@@ -153,7 +153,7 @@ export default function DashboardRoles({roles, categories, lang, userData, dicti
         return (
             <div key={index} className={classNames("bg-gray-900 rounded-2xl my-1", !searchRoles.find(role => role.roleId === r.roleId) ? 'hidden' : null)}>
                 <label className={classNames("relative inline-flex items-center my-1 mx-2 select-none", userData.userId && userData.guildMember ? 'cursor-pointer' : null)}>
-                    <input type="checkbox" id={r._id} value={r._id} className="sr-only peer" checked={r.memberHasRole} disabled={!userData.userId || !userData.guildMember ? true : false} onChange={(e) => handleRolesCheckboxes(e, r.roleId)} />
+                    <input type="checkbox" id={r._id} value={r._id} className="sr-only peer" checked={!userData.userId ? false : r.memberHasRole} disabled={!userData.userId || !userData.guildMember ? true : false} onChange={(e) => handleRolesCheckboxes(e, r.roleId)} />
                     <div className="w-11 h-6 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-800 bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border-gray-600 peer-checked:bg-indigo-600"></div>
                     <span style={{color: r.color}} className="ml-3 text-base font-medium text-gray-300">{r.name}</span>
                 </label>

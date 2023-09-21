@@ -8,5 +8,6 @@
     "discordClientSecret": "",
     "discordGuildId": "",
     "LoginOAuth2Scopes": ["identify"],
-    "LoginOAuth2RedirectURI": "http://localhost:3001/auth/login/callback"
+    "LoginOAuth2RedirectURI": "http://localhost:3001/auth/login/callback",
+    "ownersDiscordIds": [""]
 }

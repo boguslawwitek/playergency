@@ -8,7 +8,8 @@ const adminSchema = new Schema({
   descPL: {type: String, default: ""},
   descEN: {type: String, default: ""},
   adminDashboard: {type: Boolean, default: false},
-  visibilityOnHomepage: {type: Boolean, default: false}
+  visibilityOnHomepage: {type: Boolean, default: false},
+  index: {type: Number, default: 0},
 }, { collection: 'admins' });
 
 export default mongoose.model('admin', adminSchema);
