@@ -1,10 +1,19 @@
 import * as config from "../config.json";
-import { Client, GatewayIntentBits, ActivityType, ChannelType } from 'discord.js';
+import { REST, Routes, Client, GatewayIntentBits, ActivityType, ChannelType } from 'discord.js';
 import { addExp } from './utils';
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates] });
 import userModel from './models/user';
 import walletModel from './models/user';
 const polishChars = ['ż','ź','ś','ó','ł','ę','ć','ą'];
+
+const commands = [
+  {
+    name: 'profil',
+    description: 'Wysyłam link do profilu',
+  },
+];
+
+const rest = new REST({ version: '10' }).setToken(config.discordBotToken);
 
 client.on('ready', async () => {
     if (!client.user || !client.application) return;
@@ -54,6 +63,24 @@ client.on('ready', async () => {
             }
         }
     }));
+
+    try {
+        console.log('Odświeżanie komend Discorda (/)...');
+      
+        await rest.put(Routes.applicationGuildCommands(config.discordClientId, config.discordGuildId), { body: commands });
+      
+        console.log('Pomyślnie odświeżono komendy (/) Discorda.');
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isChatInputCommand()) return;
+  
+    if (interaction.commandName === 'profil') {
+        await interaction.reply(`https://www.playergency.com/dashboard/profiles/${interaction.user.id}`);
+    }
 });
 
 client.on('messageCreate', message => {
