@@ -7,6 +7,30 @@ import { getIconUrl, getMembersCount, getUser } from "../utils";
 import { getDictionary } from '../../../dictionary';
 import { Locale } from '../../../i18n-config';
 
+export async function generateMetadata({ params }:any) {
+  if(params.lang === 'pl') {
+      return {
+          title: 'Playergency | Discord',
+          description: 'Dołącz do naszej społeczności i wspólnie rozwijaj ją z nami.',
+          openGraph: {
+            title: 'Playergency | Discord',
+            description: 'Dołącz do naszej społeczności i wspólnie rozwijaj ją z nami.',
+            images: ['/images/bg.jpg'],
+          }
+        }
+  } else {
+      return {
+        title: 'Playergency | Discord',
+        description: 'Join our community and grow it together with us.',
+        openGraph: {
+          title: 'Playergency | Discord',
+          description: 'Join our community and grow it together with us.',
+          images: ['/images/bg.jpg'],
+        }
+      }
+  }
+}
+
 export default async function Discord({
   params: { lang },
 }: {

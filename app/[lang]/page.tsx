@@ -8,6 +8,26 @@ import { getIconUrl, getMembersCount, getAdmins, getUser } from "./utils";
 import { getDictionary } from '../../dictionary';
 import { Locale } from '../../i18n-config';
 
+export async function generateMetadata({ params }:any) {
+  if(params.lang === 'pl') {
+      return {
+          description: 'Szukasz ludzi do gry? A może chcesz miło spędzić czas, rozmawiając z ciekawymi ludźmi? W takim razie dołącz do nas i buduj z nami społeczność marzeń.',
+          openGraph: {
+            description: 'Szukasz ludzi do gry? A może chcesz miło spędzić czas, rozmawiając z ciekawymi ludźmi? W takim razie dołącz do nas i buduj z nami społeczność marzeń.',
+            images: ['/images/bg.jpg'],
+          }
+        }
+  } else {
+      return {
+        description: 'Are you looking for people to play with? Or maybe you want to have a nice time talking to interesting people? If so, join us and build your dream community with us.',
+        openGraph: {
+          description: 'Are you looking for people to play with? Or maybe you want to have a nice time talking to interesting people? If so, join us and build your dream community with us.',
+          images: ['/images/bg.jpg'],
+        }
+      }
+  }
+}
+
 export default async function Home({
   params: { lang },
 }: {

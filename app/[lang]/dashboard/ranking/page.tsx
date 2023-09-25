@@ -8,6 +8,30 @@ import { getDictionary } from '../../../../dictionary';
 import { Locale } from '../../../../i18n-config';
 import Link from "next/link";
 
+export async function generateMetadata({ params }:any) {
+    if(params.lang === 'pl') {
+        return {
+            title: 'Playergency | Ranking',
+            description: 'Zobacz kto jest najaktywniejszy na naszym serwerze. Sprawdź swoje miejsce w rankingu i pochwal się znajomym.',
+            openGraph: {
+              title: 'Playergency | Ranking',
+              description: 'Zobacz kto jest najaktywniejszy na naszym serwerze. Sprawdź swoje miejsce w rankingu i pochwal się znajomym.',
+              images: ['/images/bg.jpg'],
+            }
+          }
+    } else {
+        return {
+          title: 'Playergency | Ranking',
+          description: 'See who is the most active on our server. Check your place in the ranking and brag to your friends.',
+          openGraph: {
+            title: 'Playergency | Ranking',
+            description: 'See who is the most active on our server. Check your place in the ranking and brag to your friends.',
+            images: ['/images/bg.jpg'],
+          }
+        }
+    }
+  }
+
 export default async function DashboardRanking({
     params: { lang },
   }: {
@@ -25,7 +49,7 @@ export default async function DashboardRanking({
                     <div className="flex items-center space-x-4 pt-1 xl:pt-0">
                         <img className="w-12 h-12 rounded-full" src={user.avatarUrl} alt={`${user.username} avatar`} />
                         <div className="font-medium text-white text-2xl">
-                            <div>{user.shortUsername}</div>
+                            <div className="truncate max-w-[140px]">{user.username}</div>
                         </div>
                     </div>
                 </div>

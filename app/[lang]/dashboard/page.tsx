@@ -8,6 +8,30 @@ import { getDictionary } from '../../../dictionary';
 import { Locale } from '../../../i18n-config';
 import DashboardRoles from "../components/DashboardRoles";
 
+export async function generateMetadata({ params }:any) {
+  if(params.lang === 'pl') {
+      return {
+          title: 'Playergency | Panel Gracza',
+          description: 'Zarządzaj swoim kontem jak nigdy dotąd. Nasz panel to przede wszystkim wygoda.',
+          openGraph: {
+            title: 'Playergency | Panel Gracza',
+            description: 'Zarządzaj swoim kontem jak nigdy dotąd. Nasz panel to przede wszystkim wygoda.',
+            images: ['/images/bg.jpg'],
+          }
+        }
+  } else {
+      return {
+        title: 'Playergency | Player Dashboard',
+        description: 'Manage your account like never before. Our panel is all about convenience.',
+        openGraph: {
+          title: 'Playergency | Player Dashboard',
+          description: 'Manage your account like never before. Our panel is all about convenience.',
+          images: ['/images/bg.jpg'],
+        }
+      }
+  }
+}
+
 export default async function Dashboard({
     params: { lang },
   }: {
