@@ -9,14 +9,6 @@ import { useRouter } from 'next/navigation';
 
 interface AdminSettingsAdminsProps {
     backendUrl: string,
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean,
-        owner: boolean
-    },
     dictionary: {
         "settings-categories": string,
         "settings-roles": string,
@@ -38,7 +30,7 @@ interface AdminSettingsAdminsProps {
 
 
 
-export default function AdminSettingsCategories({userData, dictionary, backendUrl}:AdminSettingsAdminsProps) {
+export default function AdminSettingsCategories({dictionary, backendUrl}:AdminSettingsAdminsProps) {
     const [adminsState, setAdminsState] = useState<any[]>([]);
     const [adminsStateForDelete, setAdminsStateForDelete] = useState<any[]>([]);
     const [visibleAdmin, setVisibleAdmin] = useState<String>("");
@@ -48,9 +40,10 @@ export default function AdminSettingsCategories({userData, dictionary, backendUr
     const [addAdminInput, setAddAdminInput] = useState('');
     const [fetchUser, setFetchUser] = useState<any>({});
     const { data, error, isLoading } = useSWR(`${backendUrl}/admin/getAdmins`, fetcher);
+    const { data:userData, error:userDataError } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
 
     useEffect(() => {
-        if(!userData.owner) {
+        if(userData && !userDataError && !userData?.owner) {
             router.push('/');
         }
 
@@ -66,7 +59,7 @@ export default function AdminSettingsCategories({userData, dictionary, backendUr
             if(data.admins.length > 0) setVisibleAdmin(data.admins[0].userid);
         }
 
-    }, [userData, router, backendUrl, data, error])
+    }, [userData, router, backendUrl, data, error, userDataError])
 
     function handleChangeVisibleAdminSettings(userid: String) {
         setVisibleAdmin(userid);

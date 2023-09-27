@@ -8,13 +8,6 @@ import { useRouter } from 'next/navigation';
 
 interface AdminSettingsCategoriesProps {
     backendUrl: string,
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean
-    },
     dictionary: {
         "settings-categories": string,
         "settings-roles": string,
@@ -33,7 +26,7 @@ interface AdminSettingsCategoriesProps {
     }
 }
 
-export default function AdminSettingsCategories({userData, dictionary, backendUrl}:AdminSettingsCategoriesProps) {
+export default function AdminSettingsCategories({dictionary, backendUrl}:AdminSettingsCategoriesProps) {
     const [categories, setCategories] = useState<any[]>([]);
     const [categoriesState, setCategoriesState] = useState<any[]>([]);
     const [categoriesStateForDelete, setCategoriesStateForDelete] = useState<any[]>([]);
@@ -41,13 +34,14 @@ export default function AdminSettingsCategories({userData, dictionary, backendUr
     const [statusInfo, setStatusInfo] = useState('');
     const router = useRouter();
     const { data, error, isLoading } = useSWR(`${backendUrl}/admin/getSettingsRoles`, fetcher);
+    const { data:userData, error:userDataError } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
 
     useEffect(() => {
-        if(!userData.admin) {
+        if(userData && !userDataError && !userData?.admin) {
             router.push('/');
         }
 
-        if(data && !error) {
+        if(data && !error && data?.categories.length > 0) {
             setCategories(data.categories);
             setCategoriesState(prev => {
                 prev = data.categories.map((c: any) => {
@@ -58,7 +52,7 @@ export default function AdminSettingsCategories({userData, dictionary, backendUr
             });
         }
 
-    }, [userData, router, backendUrl, data, error])
+    }, [userData, router, backendUrl, data, error, userDataError])
 
     function handleInputs(e: React.ChangeEvent<HTMLInputElement>, name: string, categoryId: string) {
         const cloneState = [...categoriesState];
@@ -201,13 +195,12 @@ export default function AdminSettingsCategories({userData, dictionary, backendUr
     )
 
     return (<>
-        {userData.admin ? <>
+        {userData && !userDataError && userData?.admin ? <>
         <h2 className="font-semibold text-2xl text-center w-full pb-4">{dictionary['settings-categories']}</h2>
         <div className="w-full max-w-screen-xl m-auto flex flex-col justify-center items-center mb-4">
-            {categories && categories.length > 0 ?
             <ul className="flex flex-col justify-start items-center w-full text-center rounded-md m-auto">
                 {categoriesMap}
-            </ul> : null}
+            </ul>
             <div className="flex w-full justify-center items-center">
                 <button type="button" onClick={handleAddNewCategory} className="text-white focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-yellow-800 hover:bg-yellow-700 focus:ring-yellow-700 border-yellow-700">{dictionary['add-category']}</button>
                 <button type="button" onClick={handleSubmit} className="text-white focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-green-800 hover:bg-green-700 focus:ring-green-700 border-green-700">{dictionary['save-changes']}</button>

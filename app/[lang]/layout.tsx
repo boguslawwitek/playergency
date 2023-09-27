@@ -7,17 +7,14 @@ import { getIconUrl } from './utils';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { i18n } from '../../i18n-config'
-
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }))
-}
-
 export async function generateMetadata() {
   const { iconUrl } = await getIconUrl();
  
   return {
     metadataBase: new URL('https://www.playergency.com'),
+    twitter: {
+      card: 'website'
+    },
     alternates: {
       canonical: '/',
       languages: {
@@ -30,7 +27,9 @@ export async function generateMetadata() {
       icon: iconUrl
     },
     openGraph: {
+      title: 'Playergency',
       images: ['/images/bg.jpg'],
+      type: 'website',
     }
   };
 }

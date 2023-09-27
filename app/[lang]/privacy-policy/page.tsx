@@ -2,7 +2,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import LanguageSwitch from '../components/LanguageSwitch';
 import CooskiesBanner from "../components/CookiesBanner";
-import { getIconUrl, getUser } from "../utils";
+import { getIconUrl } from "../utils";
 import { getDictionary } from '../../../dictionary';
 import { Locale } from '../../../i18n-config';
 
@@ -13,10 +13,9 @@ export default async function PrivacyPolicy({
 }) {
     const { iconUrl } = await getIconUrl();
     const dictionary = await getDictionary(lang);
-    const userData = await getUser();
 
     return (<>
-        <Nav iconUrl={iconUrl} dictionary={dictionary.nav} withBackgroundColor={true} backendUrl={String(process.env.backendUrl)} userData={userData} />
+        <Nav iconUrl={iconUrl} dictionary={dictionary.nav} withBackgroundColor={true} backendUrl={String(process.env.backendUrl)} />
         <section className="pt-[144px] md:pt-[100px] pb-8 max-w-screen-xl m-auto px-2">
             <h1 className="text-4xl font-semibold my-3">{dictionary["privacy-policy"]["heading-1"]}</h1>
             <h2 className="text-3xl font-semibold my-3">{dictionary["privacy-policy"]["heading-2"]}</h2>

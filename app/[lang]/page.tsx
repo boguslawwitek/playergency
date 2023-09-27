@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import LanguageSwitch from './components/LanguageSwitch';
 import DiscordMembersLink from "./components/DiscordMembersLink";
 import CooskiesBanner from "./components/CookiesBanner";
-import { getIconUrl, getMembersCount, getAdmins, getUser } from "./utils";
+import { getIconUrl, getMembersCount, getAdmins } from "./utils";
 import { getDictionary } from '../../dictionary';
 import { Locale } from '../../i18n-config';
 
@@ -15,6 +15,8 @@ export async function generateMetadata({ params }:any) {
           openGraph: {
             description: 'Szukasz ludzi do gry? A może chcesz miło spędzić czas, rozmawiając z ciekawymi ludźmi? W takim razie dołącz do nas i buduj z nami społeczność marzeń.',
             images: ['/images/bg.jpg'],
+            type: 'website',
+            url: 'https://www.playergency.com',
           }
         }
   } else {
@@ -23,6 +25,8 @@ export async function generateMetadata({ params }:any) {
         openGraph: {
           description: 'Are you looking for people to play with? Or maybe you want to have a nice time talking to interesting people? If so, join us and build your dream community with us.',
           images: ['/images/bg.jpg'],
+          type: 'website',
+          url: 'https://www.playergency.com',
         }
       }
   }
@@ -38,7 +42,6 @@ export default async function Home({
   const { iconUrl } = await getIconUrl();
   const { members } = await getMembersCount();
   const { admins } = await getAdmins();
-  const userData = await getUser();
 
   const adminsElements = admins.map((a: any, index: number) => {
     if(!a.visibilityOnHomepage) return null;
@@ -56,7 +59,7 @@ export default async function Home({
   })
 
   return (<>
-    <Nav iconUrl={iconUrl} dictionary={dictionary.nav} backendUrl={String(process.env.backendUrl)} userData={userData} />
+    <Nav iconUrl={iconUrl} dictionary={dictionary.nav} backendUrl={String(process.env.backendUrl)} />
     <Header dictionary={dictionary.header} />
     <section className="max-w-screen-xl m-auto mt-16 lg:mt-6">
       <div className="w-full flex flex-col justify-center items-center text-center">

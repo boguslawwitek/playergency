@@ -6,6 +6,8 @@ import { useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useParams } from 'next/navigation';
+import useSWR from 'swr';
+import { fetcher } from "../utilsClient";
 
 interface DashboardNavProps {
     iconUrl: string,
@@ -24,24 +26,17 @@ interface DashboardNavProps {
         'settings-roles': string,
         'settings-admins': string
     }
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean
-        owner: boolean
-    },
     activeLink: "profile" | "roles" | "ranking" | "adminCategories" | "adminRoles" | "adminAdmins"
 }
 
-export default function DashboardNav({iconUrl, dictionary, backendUrl, userData, activeLink}:DashboardNavProps) {
+export default function DashboardNav({iconUrl, dictionary, backendUrl, activeLink}:DashboardNavProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAdminSettingsOpen, setIsAdminSettingsOpen] = useState(false);
     const { userId } = useParams();
+    const { data:userData, error } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
 
     return (<>
-        <Nav iconUrl={iconUrl} dictionary={dictionary} withBackgroundColor={true} withoutList={true} backendUrl={backendUrl} userData={userData} activeLink={activeLink}>
+        <Nav iconUrl={iconUrl} dictionary={dictionary} withBackgroundColor={true} withoutList={true} backendUrl={backendUrl} activeLink={activeLink}>
             <button onClick={() => setIsMenuOpen(prev => !prev)} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-white" aria-controls="navbar-sticky" aria-expanded="false">
                 <span className="sr-only">Open main menu</span>
                 <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
@@ -58,7 +53,7 @@ export default function DashboardNav({iconUrl, dictionary, backendUrl, userData,
                     </Link>
                 </li>
                 <li>
-                    <Link href={userData.userId ? `/dashboard/profiles/${userData.userId}` : `#`} className={classNames("select-none flex items-center p-2 rounded-lg text-gray-400 cursor-default pointer-events-none", userData.userId && userData.guildMember ? 'hover:bg-gray-700 cursor-pointer pointer-events-auto text-white' : null, activeLink === 'profile' && userId === userData.userId ? 'bg-gray-700 cursor-default' : null)}>
+                    <Link href={userData && !error && userData?.userId ? `/dashboard/profiles/${userData?.userId}` : `#`} className={classNames("select-none flex items-center p-2 rounded-lg text-gray-400 cursor-default pointer-events-none", userData?.userId && userData?.guildMember ? 'hover:bg-gray-700 cursor-pointer pointer-events-auto text-white' : null, activeLink === 'profile' && userId === userData?.userId ? 'bg-gray-700 cursor-default' : null)}>
                         <FontAwesomeIcon icon={faUser} className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
                         <span className="ml-3">{dictionary.profile}</span>
                     </Link>
@@ -75,7 +70,7 @@ export default function DashboardNav({iconUrl, dictionary, backendUrl, userData,
                         <span className="ml-3">{dictionary.ranking}</span>
                     </Link>
                 </li>
-                {userData.admin ?
+                {userData && !error && userData.admin ?
                 <li>
                     <button type="button" onClick={() => setIsAdminSettingsOpen(prev => prev = !prev)} className={classNames("flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-white hover:bg-gray-700", activeLink === "adminCategories" || activeLink === "adminRoles" || activeLink === "adminAdmins" ? 'bg-gray-700' : null)} aria-controls="dropdown-admin-settings" data-collapse-toggle="dropdown-admin-settings">
                             <FontAwesomeIcon icon={faGear} className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" />
@@ -96,7 +91,7 @@ export default function DashboardNav({iconUrl, dictionary, backendUrl, userData,
                                 {dictionary['settings-roles']}
                             </Link>
                         </li>
-                        {userData.owner ?
+                        {userData && !error && userData.owner ?
                         <li>
                             <Link href="/dashboard/admin/admins" className={classNames("select-none flex items-center w-full p-2 transition duration-75 rounded-lg text-white hover:bg-gray-700 pl-12 group", activeLink === 'adminAdmins' ? 'bg-gray-700 cursor-default' : null)}>
                                 {dictionary['settings-admins']}

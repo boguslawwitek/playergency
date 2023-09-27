@@ -1,19 +1,12 @@
 'use client'
 import { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
+import useSWR from 'swr';
+import { fetcher } from '../utilsClient';
 
 interface DashboardRolesProps {
     backendUrl: string,
     lang: 'pl' | 'en',
-    roles: any,
-    categories: any,
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean
-    },
     dictionary: {
         search: string,
         "category-all": string,
@@ -24,18 +17,24 @@ interface DashboardRolesProps {
     }
 }
 
-export default function DashboardRoles({roles, categories, lang, userData, dictionary, backendUrl}:DashboardRolesProps) {
+export default function DashboardRoles({lang, dictionary, backendUrl}:DashboardRolesProps) {
     const [activeCategory, setActiveCategory] = useState('category-all');
     const [rolesState, setRolesState] = useState<any[]>([]);
     const [searchRoles, setSearchRoles] = useState<any[]>([]);
     const [searchInput, setSearchInput] = useState('');
     const [onlyOwned, setOnlyOwned] = useState(false);
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const { data:userData, error } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
+    const { data:dashboardRoles, error:dashboardRolesError } = useSWR(`${backendUrl}/roles/getDashboardRoles`, fetcher);
+    const [categories, setCategories] = useState<any[]>([]);
 
     useEffect(() => {
-        setRolesState(roles);
-        setSearchRoles(roles);
-    }, [roles])
+        if(dashboardRoles && !dashboardRolesError && dashboardRoles?.roles && dashboardRoles?.categories) {
+            setRolesState(dashboardRoles.roles);
+            setSearchRoles(dashboardRoles.roles);
+            setCategories(dashboardRoles.categories)
+        }
+    }, [dashboardRoles, dashboardRolesError])
 
     function handleCategoriesRadioInputs(e: React.ChangeEvent<HTMLInputElement>) {
         if(e.target.value === 'category-all') {
@@ -152,8 +151,8 @@ export default function DashboardRoles({roles, categories, lang, userData, dicti
       const rolesMap = rolesState && rolesState.length > 0 ? rolesState.map((r: any, index: number) => {
         return (
             <div key={index} className={classNames("bg-gray-900 rounded-2xl my-1", !searchRoles.find(role => role.roleId === r.roleId) ? 'hidden' : null)}>
-                <label className={classNames("relative inline-flex items-center my-1 mx-2 select-none", userData.userId && userData.guildMember ? 'cursor-pointer' : null)}>
-                    <input type="checkbox" id={r._id} value={r._id} className="sr-only peer" checked={!userData.userId ? false : r.memberHasRole} disabled={!userData.userId || !userData.guildMember ? true : false} onChange={(e) => handleRolesCheckboxes(e, r.roleId)} />
+                <label className={classNames("relative inline-flex items-center my-1 mx-2 select-none", userData && !error && userData?.userId && userData?.guildMember ? 'cursor-pointer' : null)}>
+                    <input type="checkbox" id={r._id} value={r._id} className="sr-only peer" checked={!userData || !userData?.userId ? false : r.memberHasRole} disabled={!userData?.userId || !userData?.guildMember ? true : false} onChange={(e) => handleRolesCheckboxes(e, r.roleId)} />
                     <div className="w-11 h-6 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-800 bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border-gray-600 peer-checked:bg-indigo-600"></div>
                     <span style={{color: r.color}} className="ml-3 text-base font-medium text-gray-300">{r.name}</span>
                 </label>
@@ -185,7 +184,7 @@ export default function DashboardRoles({roles, categories, lang, userData, dicti
                 {categoriesMap}
             </ul> : null}
 
-            {userData.userId && userData.guildMember ? <div className="flex justify-center items-center"><div className={classNames("bg-gray-900 rounded-2xl my-1 pt-2 pb-1 px-2")}>
+            {userData && !error && userData?.userId && userData?.guildMember ? <div className="flex justify-center items-center"><div className={classNames("bg-gray-900 rounded-2xl my-1 pt-2 pb-1 px-2")}>
                 <label className="relative inline-flex items-center cursor-pointer select-none">
                     <input type="checkbox" value="only-owned" className="sr-only peer" checked={onlyOwned} onChange={handleOnlyOwnedCheckbox} />
                     <div className="w-14 h-7 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all border-gray-600 peer-checked:bg-indigo-600"></div>
@@ -193,8 +192,8 @@ export default function DashboardRoles({roles, categories, lang, userData, dicti
                 </label>
             </div></div> : null}
             
-            {userData.userId ? null : <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-logged"]}</p>}
-            {userData.userId && !userData.guildMember ? <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-guildmember"]}</p> : null}
+            {userData && !error && userData?.userId ? null : <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-logged"]}</p>}
+            {userData && !error && userData?.userId && !userData?.guildMember ? <p className="select-none text-center text-indigo-400 text-xl py-2 px-2 font-bold">{dictionary["not-guildmember"]}</p> : null}
         </div>
 
         <div className="max-w-[800px] m-auto bg-gray-700 rounded-xl py-0.5 my-1 max-h-[525px] overflow-auto scrollbar scrollbar-thumb-indigo-600 scrollbar-track-gray-100">

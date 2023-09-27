@@ -3,7 +3,7 @@ import LanguageSwitch from '../../components/LanguageSwitch';
 import CooskiesBanner from "../../components/CookiesBanner";
 import DashboardNav from '../../components/DashboardNav';
 import DashboardContent from "../../components/DashboardContent";
-import { getIconUrl, getUser, getRankingTop100 } from "../../utils";
+import { getIconUrl, getRankingTop100 } from "../../utils";
 import { getDictionary } from '../../../../dictionary';
 import { Locale } from '../../../../i18n-config';
 import Link from "next/link";
@@ -17,6 +17,8 @@ export async function generateMetadata({ params }:any) {
               title: 'Playergency | Ranking',
               description: 'Zobacz kto jest najaktywniejszy na naszym serwerze. Sprawdź swoje miejsce w rankingu i pochwal się znajomym.',
               images: ['/images/bg.jpg'],
+              type: 'website',
+              url: 'https://www.playergency.com/dashboard/ranking',
             }
           }
     } else {
@@ -27,6 +29,8 @@ export async function generateMetadata({ params }:any) {
             title: 'Playergency | Ranking',
             description: 'See who is the most active on our server. Check your place in the ranking and brag to your friends.',
             images: ['/images/bg.jpg'],
+            type: 'website',
+            url: 'https://www.playergency.com/dashboard/ranking',
           }
         }
     }
@@ -39,7 +43,6 @@ export default async function DashboardRanking({
 }) {
   const { iconUrl } = await getIconUrl();
   const dictionary = await getDictionary(lang);
-  const userData = await getUser();
   const { ranking } = await getRankingTop100();
 
   const rankingMap = ranking.map((user: any, index: number) => {
@@ -65,7 +68,7 @@ export default async function DashboardRanking({
   })
 
   return (<>
-    <DashboardNav activeLink="ranking" iconUrl={iconUrl} dictionary={dictionary.nav} backendUrl={String(process.env.backendUrl)} userData={userData} />
+    <DashboardNav activeLink="ranking" iconUrl={iconUrl} dictionary={dictionary.nav} backendUrl={String(process.env.backendUrl)} />
     <DashboardContent>
         {ranking ? 
         <div className="min-h-[100vh] px-8 md:px16 py-2 max-w-screen-xl m-auto"> 

@@ -8,13 +8,6 @@ import { fetcher } from '../utilsClient';
 interface AdminSettingsRolesProps {
     backendUrl: string,
     lang: 'pl' | 'en',
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean
-    },
     dictionary: {
         "settings-categories": string,
         "settings-roles": string,
@@ -34,7 +27,7 @@ interface AdminSettingsRolesProps {
     }
 }
 
-export default function AdminSettingsRoles({lang, userData, dictionary, backendUrl}:AdminSettingsRolesProps) {
+export default function AdminSettingsRoles({lang, dictionary, backendUrl}:AdminSettingsRolesProps) {
     const [rolesState, setRolesState] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
     const [searchRoles, setSearchRoles] = useState<any[]>([]);
@@ -42,9 +35,10 @@ export default function AdminSettingsRoles({lang, userData, dictionary, backendU
     const searchInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
     const { data, error, isLoading } = useSWR(`${backendUrl}/admin/getSettingsRoles`, fetcher);
+    const { data:userData, error: userDataError } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
 
     useEffect(() => {
-        if(!userData.admin) {
+        if(userData && !userDataError && !userData?.admin) {
             router.push('/');
         }
 
@@ -68,7 +62,7 @@ export default function AdminSettingsRoles({lang, userData, dictionary, backendU
             });
         }
 
-    }, [userData, router, backendUrl, data, error])
+    }, [userData, router, backendUrl, data, error, userDataError])
 
     function handleRolesCheckboxes(e: React.ChangeEvent<HTMLInputElement>, roleId: string) {
         const cloneState = [...rolesState];

@@ -9,6 +9,9 @@ export async function generateMetadata() {
  
   return {
     metadataBase: new URL('https://www.playergency.com'),
+    twitter: {
+      card: 'website'
+    },
     alternates: {
       canonical: '/',
       languages: {
@@ -22,6 +25,7 @@ export async function generateMetadata() {
     },
     openGraph: {
       images: ['/images/bg.jpg'],
+      type: 'website',
     },
   };
 }

@@ -4,6 +4,8 @@ import Link from "next/link";
 import classNames from "classnames";
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import useSWR from 'swr';
+import { fetcher } from "../utilsClient";
 
 interface NavProps {
     withBackgroundColor?: Boolean,
@@ -19,20 +21,14 @@ interface NavProps {
         logout: string,
         'go-to-dashboard': string
     },
-    userData: {
-        username: string,
-        userId: string,
-        avatarUrl: string,
-        admin: boolean,
-        guildMember: boolean
-    }
     activeLink?: string
 }
 
-export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutList, children, backendUrl, userData, activeLink}:NavProps) {
+export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutList, children, backendUrl, activeLink}:NavProps) {
     const { push } = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+    const { data:userData, error } = useSWR(`${backendUrl}/auth/getUser`, fetcher);
 
     function handleLoginBtn() {
         push(`${backendUrl}/auth/login`);
@@ -50,7 +46,7 @@ export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutLi
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Playergency</span>
         </Link>
         <div className="mt-2 sm:mt-0 flex md:order-2">
-            {userData.userId ? <div className="relative">
+            {userData && !error && userData.userId ? <div className="relative">
                 <button role="button" onClick={() => setIsUserDropdownOpen(prev => !prev)} className="flex items-center space-x-4">
                     <img className="w-10 h-10 rounded-full" src={userData.avatarUrl} alt="" />
                     <div className="font-medium text-white">
@@ -89,7 +85,7 @@ export default function Nav({iconUrl, dictionary, withBackgroundColor, withoutLi
                 <Link href="/dashboard" className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:underline text-white hover:border-indigo-600 hover:text-white md:hover:bg-transparent border-indigo-600">{dictionary.dashboard}</Link>
             </li>
             <li>
-                <a href="#" className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:underline text-white hover:border-indigo-600 hover:text-white md:hover:bg-transparent border-indigo-600">{dictionary.ranking}</a>
+                <Link href="/dashboard/ranking" className="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:underline text-white hover:border-indigo-600 hover:text-white md:hover:bg-transparent border-indigo-600">{dictionary.ranking}</Link>
             </li>
             </ul>
         </div>
