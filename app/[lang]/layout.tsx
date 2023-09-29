@@ -43,6 +43,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang={params.lang}>
+      <head>
+        {process.env.umamiUrl && process.env.umamiDataWebsiteId ?
+          <script async src={process.env.umamiUrl} data-website-id={process.env.umamiDataWebsiteId}></script>
+        : null}
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
