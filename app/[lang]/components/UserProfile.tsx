@@ -14,7 +14,8 @@ interface UserProfileProps {
         "created-at": string,
         loading: string,
         "copy-link": string,
-        "unknown-user": string
+        "unknown-user": string,
+        days: string
     },
     backendUrl: String,
     lang: String
@@ -134,14 +135,14 @@ export default function UserProfile({dictionary, backendUrl, lang}: UserProfileP
                                         </p>
                                     </div>
                                     <div className="inline-flex items-center text-base font-semibold text-indigo-400">
-                                        {new Date(userData.guildMemberJoinedAt).toLocaleDateString('pl-PL', {
+                                        {`${new Date(userData.guildMemberJoinedAt).toLocaleDateString('pl-PL', {
                                             year: 'numeric',
                                             month: 'numeric',
                                             day: 'numeric',
                                             hour: 'numeric',
                                             minute: 'numeric',
                                             second: 'numeric'
-                                        })}
+                                        })} (${userData.guildMemberJoinedAtDays} ${dictionary.days})`}
                                     </div>
                                 </div>
                             </li>
@@ -153,14 +154,14 @@ export default function UserProfile({dictionary, backendUrl, lang}: UserProfileP
                                         </p>
                                     </div>
                                     <div className="inline-flex items-center text-base font-semibold text-indigo-400">
-                                        {new Date(userData.discordCreatedAt).toLocaleDateString('pl-PL', {
+                                        {`${new Date(userData.discordCreatedAt).toLocaleDateString('pl-PL', {
                                             year: 'numeric',
                                             month: 'numeric',
                                             day: 'numeric',
                                             hour: 'numeric',
                                             minute: 'numeric',
                                             second: 'numeric'
-                                        })}
+                                        })} (${userData.discordCreatedAtDays} ${dictionary.days})`}
                                     </div>
                                 </div>
                             </li>

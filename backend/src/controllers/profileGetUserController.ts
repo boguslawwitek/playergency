@@ -45,15 +45,15 @@ export default class ProfileGetUserController {
     if(userData && userData.hasOwnProperty('id') && userData.id) {
         const avatarUrl = userData.displayAvatarURL();
         const adminUser = adminsDb.find(a => a.userid === userData.id);
-        const guildMember = await guild?.members.fetch(userData.id);
+        const guildMember: any = await guild?.members.fetch(userData.id);
         if(!guildMember || !guildMember.id) return {error: 'Unknown user', userData: {}}
         const levelColor = getLevelColor(userDb[0].level);
 
-        if(adminUser) {
-            return {error: null, userData: { username: userData.username, userId: userData.id, avatarUrl, admin: true, adminRolePL: adminUser.rolePL, adminRoleEN: adminUser.roleEN, discordCreatedAt: userData.createdAt, guildMemberJoinedAt: guildMember?.joinedAt, wallet: wallet ? wallet : 0, exp: userDb[0].exp, goal: userDb[0].goal, level: userDb[0].level, ranking: rankingPosition, levelPercentOfGoal, levelColor }};
-        } else {
-            return {error: null, userData: { username: userData.username, userId: userData.id, avatarUrl, admin: false, adminRolePL: null, adminRoleEN: null, discordCreatedAt: userData.createdAt, guildMemberJoinedAt: guildMember?.joinedAt, wallet: wallet ? wallet : 0, exp: userDb[0].exp, goal: userDb[0].goal, level: userDb[0].level, ranking: rankingPosition, levelPercentOfGoal, levelColor }};
-        }
+        let dateNow = new Date();
+        const discordCreatedAtDays = userData ? Math.round((dateNow.getTime() - userData.createdAt.getTime()) / (1000 * 3600 * 24)) : null;
+        const guildMemberJoinedAtDays: any = guildMember ? Math.round((dateNow.getTime() - guildMember.joinedAt.getTime()) / (1000 * 3600 * 24)) : null;
+
+        return {error: null, userData: { username: userData.username, userId: userData.id, avatarUrl, admin: true, adminRolePL: adminUser ? adminUser.rolePL : null, adminRoleEN: adminUser ? adminUser.roleEN : null, discordCreatedAt: userData.createdAt, discordCreatedAtDays, guildMemberJoinedAt: guildMember?.joinedAt, guildMemberJoinedAtDays, wallet: wallet ? wallet : 0, exp: userDb[0].exp, goal: userDb[0].goal, level: userDb[0].level, ranking: rankingPosition, levelPercentOfGoal, levelColor }};
     }
 
     return {error: 'Unknown user', userData: {}}

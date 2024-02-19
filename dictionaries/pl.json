@@ -124,7 +124,8 @@
     "created-at": "Utworzył konto",
     "loading": "Wczytywanie",
     "copy-link": "Kopiuj link",
-    "unknown-user": "Nie znależliśmy takiego użytkownika w naszej bazie danych. Najpierw dołącz do naszego serwera Discord."
+    "unknown-user": "Nie znależliśmy takiego użytkownika w naszej bazie danych. Najpierw dołącz do naszego serwera Discord.",
+    "days": "dni"
   },
   "admin-dashboard": {
     "settings-categories": "Ustawienia kategorii",
